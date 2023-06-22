@@ -15,7 +15,7 @@ models_urls = {
 
 class SFDDetector(FaceDetector):
     def __init__(self, device, path_to_detector=os.path.join(os.path.dirname(os.path.abspath(__file__)), 's3fd.pth'), verbose=False):
-        super(SFDDetector, self).__init__(device, verbose)
+        super().__init__(device, verbose)
 
         # Initialise the face detector
         if not os.path.isfile(path_to_detector):
@@ -43,7 +43,6 @@ class SFDDetector(FaceDetector):
         keeps = [nms(bboxlists[:, i, :], 0.3) for i in range(bboxlists.shape[1])]
         bboxlists = [bboxlists[keep, i, :] for i, keep in enumerate(keeps)]
         bboxlists = [[x for x in bboxlist if x[-1] > 0.5] for bboxlist in bboxlists]
-
         return bboxlists
 
     @property
